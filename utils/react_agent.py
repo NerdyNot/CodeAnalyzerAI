@@ -7,13 +7,13 @@ from utils.config_llm import config_llm
 tools = [
     Tool(name="Python Code Analysis",
          func=PythonCodeAnalysisTool()._run,
-         description="Clone a GitHub repository and perform Bandit and PEP8 analysis. Takes GitHub URL and optional directory path as input in the format 'github_url|directory_path'."),
+         description="Clone a GitHub repository and perform Bandit and PEP8 analysis. Takes GitHub URL, optional directory path, and optional PAT as input in the format 'github_url|Directory|GitHub_PAT'."),
     Tool(name="SQL Analysis",
          func=SQLAnalysisTool()._run,
-         description="Analyze SQL content from a GitHub repository using SQLCheck. Takes GitHub URL and optional directory path as input in the format 'github_url|directory_path'."),
+         description="Analyze SQL content from a GitHub repository using SQLCheck. Takes GitHub URL, optional directory path, and optional PAT as input in the format 'github_url|Directory|GitHub_PAT'."),
     Tool(name="Security Vulnerability Analysis",
          func=SecurityVulnerabilityAnalysisTool()._run,
-         description="Clone a GitHub repository and perform security analysis using Horusec. Takes GitHub URL and optional directory path as input in the format 'github_url|directory_path'."),
+         description="Clone a GitHub repository and perform security analysis using Horusec. Takes GitHub URL, optional directory path, and optional PAT as input in the format 'github_url|Directory|GitHub_PAT'."),
     Tool(name="Generate Report",
          func=ReportTool()._run,
          description="Generate a report based on the identifier value by searching related results in the vector store. Takes identifier value as input.")
@@ -48,6 +48,8 @@ Begin!
 
 Question: {input}
 Selected Tool: {analysis_tool}
+Directory: {directory_path}
+GitHub PAT: {pat}
 Thought:{agent_scratchpad}
 '''
 

@@ -32,25 +32,24 @@ class PythonCodeAnalysisConfig(BaseModel):
 
 class PythonCodeAnalysisTool(BaseTool):
     name = "python_code_analysis"
-    description = "Clone a GitHub repository and perform Bandit and pycodestyle analysis. Takes GitHub URL and optional directory path as input in the format 'github_url|directory_path'."
+    description = "Clone a GitHub repository and perform Bandit and pycodestyle analysis. Takes GitHub URL, optional directory path, and optional PAT as input in the format 'github_url|directory_path|pat'."
     args_schema: Type[BaseModel] = PythonCodeAnalysisConfig
     return_direct: bool = True
 
     def _run(self, input_data: str) -> str:
-        github_url, directory_path = (input_data.split('|') + [""])[:2]
-        result = self.analyze_python(github_url.strip(), directory_path.strip())
+        inputs = input_data.split('|')
+        github_url = inputs[0].strip()
+        directory_path = inputs[1].strip() if len(inputs) > 1 else ""
+        pat = inputs[2].strip() if len(inputs) > 2 else ""
+        result = self.analyze_python(github_url, directory_path, pat)
         identifier = str(uuid.uuid4())
         self.save_to_vectorstore(identifier, result)
         return f"Analysis results saved. Identifier: {identifier}"
 
     async def _arun(self, input_data: str) -> str:
-        github_url, directory_path = (input_data.split('|') + [""])[:2]
-        result = self.analyze_python(github_url.strip(), directory_path.strip())
-        identifier = str(uuid.uuid4())
-        self.save_to_vectorstore(identifier, result)
-        return f"Analysis results saved. Identifier: {identifier}"
+        return self._run(input_data)
 
-    def analyze_python(self, github_url: str, directory_path: str = "") -> str:
+    def analyze_python(self, github_url: str, directory_path: str = "", pat: str = "") -> str:
         clone_dir = f"cloned_repo_{uuid.uuid4()}"
         if os.path.exists(clone_dir):
             shutil.rmtree(clone_dir)
@@ -58,6 +57,8 @@ class PythonCodeAnalysisTool(BaseTool):
 
         try:
             # Clone the repository
+            if pat:
+                github_url = github_url.replace("https://", f"https://{pat}@")
             Repo.clone_from(github_url, clone_dir)
         except Exception as e:
             return f"Error cloning the repository: {e}"
@@ -92,25 +93,24 @@ class SQLAnalysisConfig(BaseModel):
 
 class SQLAnalysisTool(BaseTool):
     name = "sql_analysis"
-    description = "Analyze SQL content from a GitHub repository using SQLCheck. Takes GitHub URL and optional directory path as input in the format 'github_url|directory_path'."
+    description = "Analyze SQL content from a GitHub repository using SQLCheck. Takes GitHub URL, optional directory path, and optional PAT as input in the format 'github_url|directory_path|pat'."
     args_schema: Type[BaseModel] = SQLAnalysisConfig
     return_direct: bool = True
 
     def _run(self, input_data: str) -> str:
-        github_url, directory_path = (input_data.split('|') + [""])[:2]
-        result = self.analyze_sql(github_url.strip(), directory_path.strip())
+        inputs = input_data.split('|')
+        github_url = inputs[0].strip()
+        directory_path = inputs[1].strip() if len(inputs) > 1 else ""
+        pat = inputs[2].strip() if len(inputs) > 2 else ""
+        result = self.analyze_sql(github_url, directory_path, pat)
         identifier = str(uuid.uuid4())
         self.save_to_vectorstore(identifier, result)
         return f"Analysis results saved. Identifier: {identifier}"
 
     async def _arun(self, input_data: str) -> str:
-        github_url, directory_path = (input_data.split('|') + [""])[:2]
-        result = self.analyze_sql(github_url.strip(), directory_path.strip())
-        identifier = str(uuid.uuid4())
-        self.save_to_vectorstore(identifier, result)
-        return f"Analysis results saved. Identifier: {identifier}"
+        return self._run(input_data)
 
-    def analyze_sql(self, github_url: str, directory_path: str = "") -> str:
+    def analyze_sql(self, github_url: str, directory_path: str = "", pat: str = "") -> str:
         clone_dir = f"cloned_repo_{uuid.uuid4()}"
         if os.path.exists(clone_dir):
             shutil.rmtree(clone_dir)
@@ -118,6 +118,8 @@ class SQLAnalysisTool(BaseTool):
 
         try:
             # Clone the repository
+            if pat:
+                github_url = github_url.replace("https://", f"https://{pat}@")
             Repo.clone_from(github_url, clone_dir)
         except Exception as e:
             return f"Error cloning the repository: {e}"
@@ -153,25 +155,24 @@ class SecurityVulnerabilityAnalysisConfig(BaseModel):
 
 class SecurityVulnerabilityAnalysisTool(BaseTool):
     name = "security_vulnerability_analysis"
-    description = "Clone a GitHub repository and perform security analysis using Horusec. Takes GitHub URL and optional directory path as input in the format 'github_url|directory_path'."
+    description = "Clone a GitHub repository and perform security analysis using Horusec. Takes GitHub URL, optional directory path, and optional PAT as input in the format 'github_url|directory_path|pat'."
     args_schema: Type[BaseModel] = SecurityVulnerabilityAnalysisConfig
     return_direct: bool = True
 
     def _run(self, input_data: str) -> str:
-        github_url, directory_path = (input_data.split('|') + [""])[:2]
-        result = self.analyze_security_vulnerability(github_url.strip(), directory_path.strip())
+        inputs = input_data.split('|')
+        github_url = inputs[0].strip()
+        directory_path = inputs[1].strip() if len(inputs) > 1 else ""
+        pat = inputs[2].strip() if len(inputs) > 2 else ""
+        result = self.analyze_security_vulnerability(github_url, directory_path, pat)
         identifier = str(uuid.uuid4())
         self.save_to_vectorstore(identifier, result)
         return f"Analysis results saved. Identifier: {identifier}"
 
     async def _arun(self, input_data: str) -> str:
-        github_url, directory_path = (input_data.split('|') + [""])[:2]
-        result = self.analyze_security_vulnerability(github_url.strip(), directory_path.strip())
-        identifier = str(uuid.uuid4())
-        self.save_to_vectorstore(identifier, result)
-        return f"Analysis results saved. Identifier: {identifier}"
+        return self._run(input_data)
 
-    def analyze_security_vulnerability(self, github_url: str, directory_path: str = "") -> str:
+    def analyze_security_vulnerability(self, github_url: str, directory_path: str = "", pat: str = "") -> str:
         clone_dir = f"cloned_repo_{uuid.uuid4()}"
 
         if os.path.exists(clone_dir):
@@ -180,6 +181,8 @@ class SecurityVulnerabilityAnalysisTool(BaseTool):
 
         try:
             # Clone the repository
+            if pat:
+                github_url = github_url.replace("https://", f"https://{pat}@")
             Repo.clone_from(github_url, clone_dir)
         except Exception as e:
             return f"Error cloning the repository: {e}"

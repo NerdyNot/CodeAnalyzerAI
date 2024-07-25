@@ -15,8 +15,9 @@ github_url = st.text_input("Enter the GitHub URL of the repository:")
 if repo_type == "Private":
     github_token = st.text_input("Enter your GitHub Personal Access Token (PAT):", type="password")
 else:
-    github_token = None
+    github_token = ""
 
+# Directory path input within the repository
 directory_path = st.text_input("Enter the directory path within the repository (leave empty for root):")
 
 # Select output format and analysis tool
@@ -36,6 +37,8 @@ if submit_clicked and github_url:
                 agent_executor = agent()
                 output_container = st.empty()
                 output_container = output_container.container()
+                
+                # Display the analysis summary
                 summary_message = f"""
 **Analysis Summary:**
 
@@ -52,14 +55,13 @@ Please wait while the analysis is being performed...
                 cfg = RunnableConfig()
                 cfg["callbacks"] = [st_callback]
 
-                # Prepare the input for the agent
-                if repo_type == "Private":
-                    input_data = f"{github_url}|{github_token}|{directory_path}"
-                else:
-                    input_data = f"{github_url}|{directory_path}"
-
                 # Invoke the agent with the prepared input
-                response = agent_executor.invoke({"input": input_data, "analysis_tool": analysis_tool}, cfg)
+                response = agent_executor.invoke({
+                    "input": github_url,
+                    "directory_path": directory_path if directory_path else "",
+                    "analysis_tool": analysis_tool,
+                    "pat": github_token if github_token else ""
+                }, cfg)
                 
                 # Display the response
                 output_container.write(response["output"])
