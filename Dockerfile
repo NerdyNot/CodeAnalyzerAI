@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Install necessary dependencies
-RUN apt-get update && apt-get install -y wget curl unzip jq wkhtmltopdf
+RUN apt-get update && apt-get install -y wget curl unzip jq wkhtmltopdf libqt5gui5 libqt5webkit5 libqt5network5
 
 # Install SQLCheck
 RUN wget https://github.com/jarulraj/sqlcheck/releases/download/v1.3/sqlcheck-x86_64.deb && \

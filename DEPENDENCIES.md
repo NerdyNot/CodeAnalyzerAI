@@ -18,3 +18,7 @@ This document includes all the libraries used in the project, along with their v
 | pycodestyle                 | 2.12.0   | MIT              | [MIT License](https://opensource.org/licenses/MIT)                                              |
 | GitPython                   | 3.1.43   | BSD              | [BSD License](https://opensource.org/licenses/BSD-3-Clause)                                     |
 | faiss-cpu                   | 1.8.0.post1 | MIT           | [MIT License](https://opensource.org/licenses/MIT)                                              |
+| pdfkit                      | 1.0.0    | BSD              | [BSD License](https://opensource.org/licenses/BSD-3-Clause)                                     |
+| wkhtmltopdf                 | 0.2      | LGPL             | [LGPL License](https://www.gnu.org/licenses/lgpl-3.0.html)                                      |
+| markdown2                   | 2.5.0    | MIT              | [MIT License](https://opensource.org/licenses/MIT)                                              |
+| pyperclip                   | 1.9.0    | BSD              | [BSD License](https://opensource.org/licenses/BSD-3-Clause)                                     |
