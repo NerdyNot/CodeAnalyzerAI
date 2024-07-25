@@ -62,6 +62,7 @@ directory_path = st.text_input("Enter the directory path within the repository (
 
 # Select output format and analysis tool
 output_format = st.selectbox("Select output format", ["Detailed Report", "Summary", "JSON"], key="output_format")
+output_language = st.selectbox("Select output Language", ["English", "Korean"], key="output_language")
 analysis_tool = st.selectbox("Select analysis tool", ["Python Code Analysis", "SQL Analysis", "Security Vulnerability Analysis"], key="analysis_tool")
 
 # Start the analysis on button click
@@ -112,7 +113,8 @@ Please wait while the analysis is being performed...
                     "analysis_tool": analysis_tool,
                     "pat": github_token if github_token else "",
                     "branch": branch if branch else "main",
-                    "output_format": output_format
+                    "output_format": output_format,
+                    "output_language": output_language
                 }, cfg)
 
                 # Display the response

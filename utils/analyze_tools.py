@@ -39,8 +39,8 @@ class PythonCodeAnalysisTool(BaseTool):
     def _run(self, input_data: str) -> str:
         inputs = input_data.split('|')
         github_url = inputs[0].strip()
-        branch = inputs[1].strip() if len(inputs) > 2 else "main"
-        directory_path = inputs[2].strip() if len(inputs) > 1 else ""
+        branch = inputs[1].strip() if len(inputs) > 1 else "main"
+        directory_path = inputs[2].strip() if len(inputs) > 2 else ""
         pat = inputs[3].strip() if len(inputs) > 3 else ""
         result = self.analyze_python(github_url, directory_path, branch, pat)
         identifier = str(uuid.uuid4())
@@ -101,8 +101,8 @@ class SQLAnalysisTool(BaseTool):
     def _run(self, input_data: str) -> str:
         inputs = input_data.split('|')
         github_url = inputs[0].strip()
-        branch = inputs[1].strip() if len(inputs) > 2 else "main"
-        directory_path = inputs[2].strip() if len(inputs) > 1 else ""
+        branch = inputs[1].strip() if len(inputs) > 1 else "main"
+        directory_path = inputs[2].strip() if len(inputs) > 2 else ""
         pat = inputs[3].strip() if len(inputs) > 3 else ""
         result = self.analyze_sql(github_url, directory_path, branch, pat)
         identifier = str(uuid.uuid4())
@@ -164,8 +164,8 @@ class SecurityVulnerabilityAnalysisTool(BaseTool):
     def _run(self, input_data: str) -> str:
         inputs = input_data.split('|')
         github_url = inputs[0].strip()
-        branch = inputs[1].strip() if len(inputs) > 2 else "main"
-        directory_path = inputs[2].strip() if len(inputs) > 1 else ""
+        branch = inputs[1].strip() if len(inputs) > 1 else "main"
+        directory_path = inputs[2].strip() if len(inputs) > 2 else ""
         pat = inputs[3].strip() if len(inputs) > 3 else ""
         result = self.analyze_security_vulnerability(github_url, directory_path, branch, pat)
         identifier = str(uuid.uuid4())

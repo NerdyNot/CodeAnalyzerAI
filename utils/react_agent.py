@@ -52,6 +52,7 @@ Directory: {directory_path}
 GitHub PAT: {pat}
 Branch: {branch}
 Report Format Type : {output_format}
+Report Language : {output_language}
 Thought:{agent_scratchpad}
 '''
 
