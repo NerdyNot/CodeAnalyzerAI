@@ -26,7 +26,7 @@ llm = config_llm.get_llm()
 # Define prompt template
 template = '''
 **Instructions**: 
-Create an analytical report based on the selected output format and provide it as the final answer. 
+- Create an analytical report based on the selected output format and provide it as the final answer. 
 
 Answer the following questions as best you can. You have access to the following tools:
 
@@ -36,12 +36,12 @@ Use the following format:
 
 Question: the input question you must answer
 Selected Tool: the analysis tool to use, should be one of [{tool_names}]
-Thought: you should always think about what to do
+Thought: you should always think about what to do. Do not generate the report here.
 Action: the action to take, should be the selected tool from above
 Action Input: the input to the action
 Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
-Thought: I need to generate the analytical report
+Thought: I now know what to do. I will generate the report.
 Final Answer: the final answer to the original input question, which includes the formatted report
 
 Begin!
