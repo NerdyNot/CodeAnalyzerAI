@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  analyzer:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      # Set the LLM provider (e.g., 'azure', 'openai', 'gemini', 'vertexai', 'anthropic')
+      - LLM_PROVIDER=your_llm_provider
+      # Set the API key for the chosen LLM provider
+      - LLM_API_KEY=your_llm_api_key
+      # Set the model name for the chosen LLM provider
+      - LLM_MODEL=you_llm_model
+      # Set the temperature for the model's response generation
+      - LLM_TEMPERATURE=0.5
+      # Set the Azure endpoint if the LLM provider is 'azure'
+      - AZURE_ENDPOINT=your_azure_llm_endpoint
+      # Set the Azure API version if the LLM provider is 'azure'
+      - AZURE_API_VERSION=your_azure_api_version
+      # Set the Embedding provider (e.g., 'azure', 'openai', 'gemini', 'vertexai')
+      - EMBEDDING_PROVIDER=your_embedding_provider
+      # Set the API key for the chosen Embedding provider
+      - EMBEDDING_API_KEY=your_embedding_api_key
+      # Set the model name for the chosen Embedding provider
+      - EMBEDDING_MODEL=your_embedding_model
+    volumes:
+      - .:/app
