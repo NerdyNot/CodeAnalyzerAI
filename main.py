@@ -7,7 +7,6 @@ from langchain_community.callbacks import StreamlitCallbackHandler
 from langchain_core.runnables import RunnableConfig
 from utils.react_agent import agent
 import tempfile
-import pyperclip
 
 # Function to create a PDF from markdown text
 def create_pdf(md_content):
@@ -55,6 +54,9 @@ if repo_type == "Private":
 else:
     github_token = ""
 
+# Branch input within the repository
+branch = st.text_input("Enter the branch within the repository (default is 'main'):", key="branch")
+
 # Directory path input within the repository
 directory_path = st.text_input("Enter the directory path within the repository (leave empty for root):", key="directory_path")
 
@@ -90,6 +92,7 @@ if 'submit_clicked' in st.session_state and st.session_state.submit_clicked:
 
 - **Repository URL:** {github_url}
 - **Directory Path:** {directory_path if directory_path else 'Root'}
+- **Branch:** {branch if branch else 'main'}
 - **Output Format:** {output_format}
 - **Analysis Tool:** {analysis_tool}
 - **Report Generated At:** {report_timestamp}
@@ -108,6 +111,7 @@ Please wait while the analysis is being performed...
                     "directory_path": directory_path if directory_path else "",
                     "analysis_tool": analysis_tool,
                     "pat": github_token if github_token else "",
+                    "branch": branch if branch else "main",
                     "output_format": output_format
                 }, cfg)
 
@@ -121,6 +125,7 @@ Please wait while the analysis is being performed...
 
 **Repository URL:** {github_url}
 **Directory Path:** {directory_path if directory_path else 'Root'}
+**Branch:** {branch if branch else 'main'}
 **Output Format:** {output_format}
 **Analysis Tool:** {analysis_tool}
 **Report Generated At:** {report_timestamp}
