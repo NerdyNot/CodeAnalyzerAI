@@ -12,6 +12,21 @@ import tempfile
 def create_pdf(md_content):
     # Convert markdown to HTML
     html_content = markdown(md_content)
+    
+    # Add a style to include Korean font
+    style = """
+    <style>
+        @font-face {
+            font-family: 'Noto Sans KR';
+            src: url('https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2') format('woff2');
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+    """
+    
+    html_content = style + html_content
 
     # Create a temporary HTML file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".html") as temp_html:
@@ -19,14 +34,19 @@ def create_pdf(md_content):
         temp_html_path = temp_html.name
 
     # Convert the HTML file to PDF and save it to a BytesIO object
+    options = {
+        'encoding': 'UTF-8',
+        'quiet': ''
+    }
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
-        pdfkit.from_file(temp_html_path, temp_pdf.name)
+        pdfkit.from_file(temp_html_path, temp_pdf.name, options=options)
         temp_pdf_path = temp_pdf.name
 
     with open(temp_pdf_path, "rb") as f:
         pdf_output = BytesIO(f.read())
 
     return pdf_output
+
 
 # Set up the Streamlit app configuration
 st.set_page_config(page_title="Code Analyzer AI", page_icon="🔍", layout="wide")
@@ -61,7 +81,7 @@ branch = st.text_input("Enter the branch within the repository (default is 'main
 directory_path = st.text_input("Enter the directory path within the repository (leave empty for root):", key="directory_path")
 
 # Select output format and analysis tool
-output_format = st.selectbox("Select output format", ["Detailed Report", "Summary", "JSON"], key="output_format")
+output_format = st.selectbox("Select output format", ["Detailed Report", "Simpled Report", "JSON"], key="output_format")
 output_language = st.selectbox("Select output Language", ["English", "Korean"], key="output_language")
 analysis_tool = st.selectbox("Select analysis tool", ["Python Code Analysis", "SQL Analysis", "Security Vulnerability Analysis"], key="analysis_tool")
 

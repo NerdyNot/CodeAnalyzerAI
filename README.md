@@ -87,7 +87,8 @@ Please refer to the [DEPENDENCIES.md](DEPENDENCIES.md) file.
    - Enter the GitHub repository URL.
    - If the repository is private, enter your GitHub Personal Access Token (PAT).
    - Enter the directory path within the repository (leave empty for root).
-   - Select the output format (Detailed Report, Summary, JSON).
+   - Select the output format (Detailed Report, Simpled Report, JSON).
+   - Select the output language (English, Korean).
    - Select the analysis tool (Python Code Analysis, SQL Analysis, Security Vulnerability Analysis).
 
 2. Click "Start Analysis" to analyze the code and generate the report.
@@ -180,7 +181,8 @@ This project is licensed under the MIT License.
    - GitHub 저장소 URL 입력.
    - 저장소가 비공개인 경우, GitHub 개인 접근 토큰(PAT) 입력.
    - 저장소 내 디렉토리 경로 입력 (루트 디렉토리는 비워둡니다).
-   - 출력 형식 선택 (상세 보고서, 요약, JSON).
+   - 출력 형식 선택 (상세 보고서, 간단 보고서, JSON).
+   - 출력 언어 선택 (영어, 한국어).
    - 분석 도구 선택 (Python Code Analysis, SQL Analysis, Security Vulnerability Analysis).
 
 2. "Start Analysis"를 클릭하여 코드를 분석하고 보고서를 생성합니다.
