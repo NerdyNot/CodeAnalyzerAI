@@ -8,7 +8,15 @@ WORKDIR /app
 COPY . /app
 
 # Install necessary dependencies
-RUN apt-get update && apt-get install -y wget curl unzip jq wkhtmltopdf libqt5gui5 libqt5webkit5 libqt5network5
+RUN apt-get update && apt-get install -y wget curl unzip jq xvfb xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+
+# Install additional Qt libraries
+RUN apt-get install -y libxrender1 libfontconfig1 libqt5gui5 libqt5webkit5 libqt5network5 libqt5core5a
+
+# Install wkhtmltopdf
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
+    dpkg -i wkhtmltox_0.12.6.1-2.bullseye_amd64.deb && \
+    rm wkhtmltox_0.12.6.1-2.bullseye_amd64.deb
 
 # Install SQLCheck
 RUN wget https://github.com/jarulraj/sqlcheck/releases/download/v1.3/sqlcheck-x86_64.deb && \

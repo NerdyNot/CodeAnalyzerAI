@@ -107,7 +107,8 @@ Please wait while the analysis is being performed...
                     "input": github_url,
                     "directory_path": directory_path if directory_path else "",
                     "analysis_tool": analysis_tool,
-                    "pat": github_token if github_token else ""
+                    "pat": github_token if github_token else "",
+                    "output_format": output_format
                 }, cfg)
 
                 # Display the response

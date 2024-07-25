@@ -50,6 +50,7 @@ Question: {input}
 Selected Tool: {analysis_tool}
 Directory: {directory_path}
 GitHub PAT: {pat}
+Report Output Format : {output_format}
 Thought:{agent_scratchpad}
 '''
 
